@@ -1,0 +1,48 @@
+{
+    "name": "template",
+    "version": "1.0.0",
+    "description": "Template for node project",
+    "main": "index.js",
+    "scripts": {
+        "dev": "nodemon src/server.ts",
+        "format:check": "prettier . --check",
+        "format:fix": "prettier . --write",
+        "lint": "eslint .",
+        "lint:fix": "eslint . --fix",
+        "test": "jest --watch --runInBand",
+        "prepare": "husky"
+    },
+    "author": "Dev",
+    "license": "ISC",
+    "devDependencies": {
+        "@eslint/js": "^9.39.0",
+        "@types/express": "^5.0.5",
+        "@types/jest": "^30.0.0",
+        "@types/node": "^24.9.2",
+        "@types/supertest": "^6.0.3",
+        "eslint": "^9.39.0",
+        "husky": "^9.1.7",
+        "jest": "^30.2.0",
+        "lint-staged": "^16.2.6",
+        "nodemon": "^3.1.10",
+        "prettier": "3.6.2",
+        "supertest": "^7.1.4",
+        "ts-jest": "^29.4.6",
+        "ts-node": "^10.9.2",
+        "typescript": "^5.9.3",
+        "typescript-eslint": "^8.46.2"
+    },
+    "lint-staged": {
+        "*.ts": [
+            "npm run format:fix",
+            "npm run lint:fix"
+        ]
+    },
+    "dependencies": {
+        "@types/http-errors": "^2.0.5",
+        "dotenv": "^17.2.3",
+        "express": "^5.1.0",
+        "http-errors": "^2.0.1",
+        "winston": "^3.19.0"
+    }
+}
