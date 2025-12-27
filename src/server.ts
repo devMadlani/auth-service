@@ -8,9 +8,7 @@ const startServer = () => {
     const PORT = Config.PORT
     try {
         app.listen(PORT, () => {
-            logger.error('error')
-            logger.warn('hello')
-            logger.info('Listing on port', { port: PORT })
+            logger.info('Listing on ', { port: PORT })
         })
     } catch (error) {
         console.error(error)

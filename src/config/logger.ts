@@ -32,7 +32,7 @@ const logger = winston.createLogger({
             level: 'info',
             format: winston.format.combine(
                 winston.format.timestamp(),
-                winston.format.cli(),
+                winston.format.json(),
             ),
             silent: Config.NODE_ENV === 'test',
         }),
