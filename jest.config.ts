@@ -8,6 +8,7 @@ const config: Config = {
     transform: {
         ...tsJestPreset.transform,
     },
+    verbose: true,
 }
 
 export default config
