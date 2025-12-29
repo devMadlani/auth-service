@@ -4,7 +4,7 @@
     "description": "Template for node project",
     "main": "index.js",
     "scripts": {
-        "dev": "nodemon src/server.ts",
+        "dev": "cross-env NODE_ENV=dev nodemon src/server.ts",
         "format:check": "prettier . --check",
         "format:fix": "prettier . --write",
         "lint": "eslint .",
@@ -20,6 +20,7 @@
         "@types/jest": "^30.0.0",
         "@types/node": "^24.9.2",
         "@types/supertest": "^6.0.3",
+        "cross-env": "^10.1.0",
         "eslint": "^9.39.0",
         "husky": "^9.1.7",
         "jest": "^30.2.0",
@@ -43,6 +44,9 @@
         "dotenv": "^17.2.3",
         "express": "^5.1.0",
         "http-errors": "^2.0.1",
+        "pg": "^8.16.3",
+        "reflect-metadata": "^0.2.2",
+        "typeorm": "^0.3.28",
         "winston": "^3.19.0"
     }
 }
