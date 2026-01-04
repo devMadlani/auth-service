@@ -1,10 +1,12 @@
-import 'reflext-metadata'
+import 'reflect-metadata'
 import express, { NextFunction, Request, Response } from 'express'
 import logger from './config/logger'
 import { HttpError } from 'http-errors'
 import authRouter from './routes/auth'
 
 const app = express()
+
+app.use(express.json())
 
 app.get('/', (req, res) => {
     res.send('Welcome')
