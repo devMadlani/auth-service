@@ -1,12 +1,26 @@
-import { Response } from 'express'
+import { NextFunction, Response } from 'express'
 import { RegisterUserRequest } from '../types'
 import { UserService } from '../services/userService'
 
 export class AuthController {
     constructor(private userService: UserService) {}
-    async register(req: RegisterUserRequest, res: Response) {
+    async register(
+        req: RegisterUserRequest,
+        res: Response,
+        next: NextFunction,
+    ) {
         const { firstName, lastName, email, password } = req.body
-        await this.userService.create({ firstName, lastName, email, password })
-        res.status(201).json()
+        try {
+            const user = await this.userService.create({
+                firstName,
+                lastName,
+                email,
+                password,
+            })
+            res.status(201).json({ id: user.id })
+        } catch (err) {
+            next(err)
+            return
+        }
     }
 }
