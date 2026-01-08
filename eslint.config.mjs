@@ -24,8 +24,11 @@ export default defineConfig(
             },
         },
         rules: {
-            // 'no-console': 'error',
-            // 'dot-notation': 'error',
+            'no-console': 'error',
+            'dot-notation': 'error',
+            'no-unused-vars': 'off',
+            '@typescript-eslint/no-unused-vars': 'off',
+            '@typescript-eslint/no-unsafe-assignment': 'off',
         },
     },
 )
