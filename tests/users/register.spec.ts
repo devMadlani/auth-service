@@ -199,7 +199,7 @@ describe('POST auth/register', () => {
             expect(refreshToken).not.toBeNull()
             console.log(accessToken)
             expect(isJWT(accessToken)).toBeTruthy()
-            // expect(isJWT(refreshToken)).toBeTruthy()
+            expect(isJWT(refreshToken)).toBeTruthy()
         })
     })
     describe('Fields are missing', () => {
