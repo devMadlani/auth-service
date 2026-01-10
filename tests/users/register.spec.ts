@@ -5,6 +5,7 @@ import { AppDataSource } from '../../src/config/data-source'
 import { DataSource } from 'typeorm'
 import { Roles } from '../../src/constants'
 import { isJWT } from '../utils/index'
+import { RefreshToken } from '../../src/entity/RefreshToken'
 describe('POST auth/register', () => {
     let connection: DataSource
 
@@ -200,6 +201,33 @@ describe('POST auth/register', () => {
             console.log(accessToken)
             expect(isJWT(accessToken)).toBeTruthy()
             expect(isJWT(refreshToken)).toBeTruthy()
+        })
+        it('store the refresh token in the database', async () => {
+            // Arrange
+            const userData = {
+                firstName: 'Dev',
+                lastName: 'Madlani',
+                email: 'madlanidev@gmail.com',
+                password: 'Mdr@1234',
+            }
+
+            // Act
+            const response = await request(app)
+                .post('/auth/register')
+                .send(userData)
+
+            //Assert
+            const refreshTokenRepo = connection.getRepository(RefreshToken)
+            // const refreshTokens = await refreshTokenRepo.find()
+            // expect(refreshTokens).toHaveLength(1)
+            const tokens = await refreshTokenRepo
+                .createQueryBuilder('refreshToken')
+                .where('refreshToken.userId = :userId ', {
+                    userId: (response.body as Record<string, string>).id,
+                })
+                .getMany()
+
+            expect(tokens).toHaveLength(1)
         })
     })
     describe('Fields are missing', () => {
