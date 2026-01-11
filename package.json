@@ -1,5 +1,5 @@
 {
-    "name": "template",
+    "name": "auth-service",
     "version": "1.0.0",
     "description": "Template for node project",
     "main": "index.js",

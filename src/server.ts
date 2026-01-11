@@ -1,12 +1,13 @@
-'use strict'
-
 import app from './app'
+import { AppDataSource } from './config/data-source'
 import { Config } from './config/index'
 import logger from './config/logger'
 
-const startServer = () => {
+export const startServer = async () => {
     const PORT = Config.PORT
     try {
+        await AppDataSource.initialize()
+        logger.info('Database connected successfully.')
         app.listen(PORT, () => {
             logger.info('Listing on ', { port: PORT })
         })
@@ -16,4 +17,4 @@ const startServer = () => {
     }
 }
 
-startServer()
+void startServer()
