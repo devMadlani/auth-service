@@ -2,6 +2,7 @@ import { DataSource } from 'typeorm'
 import { AppDataSource } from '../../src/config/data-source'
 import { User } from '../../src/entity/User'
 import bcrypt from 'bcrypt'
+import { Roles } from '../../src/constants'
 
 export const truncateTables = async (connection: DataSource) => {
     const entites = connection.entityMetadatas
@@ -35,10 +36,10 @@ export const createTestUser = async () => {
     const user = userRepo.create({
         firstName: 'Dev',
         lastName: 'Madlani',
-        role: 'customer',
+        role: Roles.CUSTOMER,
         email: 'madlanidev@gmail.com',
         password: hashedPassword,
     })
 
-    await userRepo.save(user)
+    return await userRepo.save(user)
 }
