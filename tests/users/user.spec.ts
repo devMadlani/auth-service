@@ -59,5 +59,24 @@ describe('POST /auth/self', () => {
             //Assert
             expect(response.body.id).toBe(user.id)
         })
+
+        it('should not return password field', async () => {
+            // Arrange
+            const user = await createTestUser()
+            const accessToken = jwks.token({
+                sub: String(user.id),
+                role: user.role,
+            })
+
+            //Act
+
+            const response = await request(app)
+                .get('/auth/self')
+                .set('Cookie', [`accessToken=${accessToken}`])
+                .send()
+
+            // Assert
+            expect(response.body).not.toHaveProperty('password')
+        })
     })
 })
