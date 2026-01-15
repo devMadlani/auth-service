@@ -78,5 +78,21 @@ describe('POST /auth/self', () => {
             // Assert
             expect(response.body).not.toHaveProperty('password')
         })
+
+        it('should return 401 if token is missing', async () => {
+            // Arrange
+            const user = await createTestUser()
+            const accessToken = jwks.token({
+                sub: String(user.id),
+                role: user.role,
+            })
+
+            //Act
+
+            const response = await request(app).get('/auth/self').send()
+
+            // Assert
+            expect(response.statusCode).toBe(401)
+        })
     })
 })
