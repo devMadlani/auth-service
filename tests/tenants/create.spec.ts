@@ -60,7 +60,7 @@ describe('POST /tenants', () => {
                 .send(tenantData)
 
             expect(response.statusCode).toBe(201)
-            const tenantRepo = AppDataSource.getRepository(Tenant)
+            const tenantRepo = connection.getRepository(Tenant)
             const data = await tenantRepo.find()
             expect(data).toHaveLength(1)
             expect(data[0].name).toBe(tenantData.name)
@@ -91,7 +91,7 @@ describe('POST /tenants', () => {
                 .post('/tenants')
                 .send(tenantData)
 
-            const tenantRepo = AppDataSource.getRepository(Tenant)
+            const tenantRepo = connection.getRepository(Tenant)
             const data = await tenantRepo.find()
 
             expect(response.statusCode).toBe(401)
@@ -113,7 +113,7 @@ describe('POST /tenants', () => {
                 .set('Cookie', `accessToken=${managerToken}`)
                 .send(tenantData)
 
-            const tenantRepo = AppDataSource.getRepository(Tenant)
+            const tenantRepo = connection.getRepository(Tenant)
             const data = await tenantRepo.find()
 
             expect(response.statusCode).toBe(403)
@@ -160,7 +160,7 @@ describe('POST /tenants', () => {
                 .set('Cookie', `accessToken=${adminToken}`)
                 .send(tenantData)
 
-            const tenantRepo = AppDataSource.getRepository(Tenant)
+            const tenantRepo = connection.getRepository(Tenant)
             const data = await tenantRepo.find()
             expect(data[0].name).toBe('Tenant Name')
             expect(data[0].address).toBe('Tenant Address')
