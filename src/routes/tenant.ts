@@ -25,6 +25,15 @@ router.post(
         tenantController.create(req, res, next),
 )
 
+router.patch(
+    '/:id',
+    authenticate,
+    canAccess([Roles.ADMIN]),
+    tenantValidators,
+    (req: Request, res: Response, next: NextFunction) =>
+        tenantController.update(req, res, next),
+)
+
 router.get(
     '/',
     authenticate,
