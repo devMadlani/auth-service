@@ -3,6 +3,7 @@ import { AppDataSource } from '../../src/config/data-source'
 import { User } from '../../src/entity/User'
 import bcrypt from 'bcrypt'
 import { Roles } from '../../src/constants'
+import { Tenant } from '../../src/entity/Tenant'
 
 export const truncateTables = async (connection: DataSource) => {
     const entites = connection.entityMetadatas
@@ -42,4 +43,11 @@ export const createTestUser = async () => {
     })
 
     return await userRepo.save(user)
+}
+
+export const createMockTenants = async () => {
+    const tenantRepo = AppDataSource.getRepository(Tenant)
+    for (let i = 0; i < 5; i++) {
+        await tenantRepo.save({ name: `Tenant ${i}`, address: `Address ${i}` })
+    }
 }

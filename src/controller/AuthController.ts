@@ -46,7 +46,7 @@ export class AuthController {
                 role: user.role,
             }
 
-            const accessToken = this.tokenService.generateAccessTOken(payload)
+            const accessToken = this.tokenService.generateAccessToken(payload)
 
             // Persist the refresh token
             const newRefreshToken =
@@ -116,7 +116,7 @@ export class AuthController {
                 role: user.role,
             }
 
-            const accessToken = this.tokenService.generateAccessTOken(payload)
+            const accessToken = this.tokenService.generateAccessToken(payload)
 
             const newRefreshToken =
                 await this.tokenService.persistRefreshToken(user)
@@ -163,7 +163,7 @@ export class AuthController {
                 role: req.auth.role,
             }
 
-            const accessToken = this.tokenService.generateAccessTOken(payload)
+            const accessToken = this.tokenService.generateAccessToken(payload)
 
             const user = await this.userService.findById(Number(req.auth.sub))
             if (!user) {

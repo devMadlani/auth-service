@@ -120,4 +120,50 @@ describe('POST /tenants', () => {
             expect(data).toHaveLength(0)
         })
     })
+
+    describe('Fields are missing', () => {
+        it('should return 400 status if name field is missing', async () => {
+            const tenantData = {
+                name: '',
+                address: 'Tenant Address',
+            }
+            const response = await request(app)
+                .post('/tenants')
+                .set('Cookie', `accessToken=${adminToken}`)
+                .send(tenantData)
+
+            expect(response.statusCode).toBe(400)
+        })
+
+        it('should return 400 status if address field is missing', async () => {
+            const tenantData = {
+                name: 'Tenant Name',
+                address: '',
+            }
+            const response = await request(app)
+                .post('/tenants')
+                .set('Cookie', `accessToken=${adminToken}`)
+                .send(tenantData)
+
+            expect(response.statusCode).toBe(400)
+        })
+    })
+
+    describe('Fields are not in proper format', () => {
+        it('should trim the name and address fields', async () => {
+            const tenantData = {
+                name: '   Tenant Name  ',
+                address: '     Tenant Address',
+            }
+            const response = await request(app)
+                .post('/tenants')
+                .set('Cookie', `accessToken=${adminToken}`)
+                .send(tenantData)
+
+            const tenantRepo = AppDataSource.getRepository(Tenant)
+            const data = await tenantRepo.find()
+            expect(data[0].name).toBe('Tenant Name')
+            expect(data[0].address).toBe('Tenant Address')
+        })
+    })
 })
