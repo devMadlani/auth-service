@@ -4,6 +4,7 @@ import cookieParse from 'cookie-parser'
 import logger from './config/logger'
 import { HttpError } from 'http-errors'
 import authRouter from './routes/auth'
+import tenantsRouter from './routes/tenant'
 import path from 'path'
 
 const app = express()
@@ -21,6 +22,7 @@ app.get('/', (req, res) => {
 })
 
 app.use('/auth', authRouter)
+app.use('/tenants', tenantsRouter)
 
 app.use((err: HttpError, req: Request, res: Response, next: NextFunction) => {
     logger.error(err.message)
