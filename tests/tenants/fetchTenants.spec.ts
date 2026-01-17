@@ -47,13 +47,7 @@ describe('GET /tenants or /tenants/:id', () => {
         })
 
         it('should return 401 if user is not authenticate', async () => {
-            const tenantData = {
-                name: 'Tenant Name',
-                address: 'Tenant Address',
-            }
-
-            const response = await request(app).get('/tenants').send(tenantData)
-
+            const response = await request(app).get('/tenants')
             expect(response.statusCode).toBe(401)
         })
 
@@ -73,15 +67,9 @@ describe('GET /tenants or /tenants/:id', () => {
                 role: Roles.MANAGER,
             })
 
-            const tenantData = {
-                name: 'Tenant Name',
-                address: 'Tenant Address',
-            }
-
             const response = await request(app)
                 .get('/tenants')
                 .set('Cookie', `accessToken=${managerToken}`)
-                .send(tenantData)
 
             expect(response.statusCode).toBe(403)
         })
@@ -97,14 +85,7 @@ describe('GET /tenants or /tenants/:id', () => {
         })
 
         it('should return 401 if user is not authenticate', async () => {
-            const tenantData = {
-                name: 'Tenant Name',
-                address: 'Tenant Address',
-            }
-
-            const response = await request(app)
-                .get('/tenants/1')
-                .send(tenantData)
+            const response = await request(app).get('/tenants/1')
 
             expect(response.statusCode).toBe(401)
         })
@@ -130,15 +111,9 @@ describe('GET /tenants or /tenants/:id', () => {
                 role: Roles.MANAGER,
             })
 
-            const tenantData = {
-                name: 'Tenant Name',
-                address: 'Tenant Address',
-            }
-
             const response = await request(app)
                 .get('/tenants/1')
                 .set('Cookie', `accessToken=${managerToken}`)
-                .send(tenantData)
 
             expect(response.statusCode).toBe(403)
         })

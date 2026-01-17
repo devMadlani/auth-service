@@ -54,7 +54,20 @@ export class TenantController {
         }
     }
 
-    delete(req: Request, res: Response, next: NextFunction) {
-        return res.status(200).json({})
+    async delete(req: Request, res: Response, next: NextFunction) {
+        const tenantId = req.params.id
+        if (isNaN(Number(tenantId))) {
+            next(createHttpError(400, 'Invalid url param'))
+            return
+        }
+        try {
+            await this.tenantSerive.deleteById(Number(tenantId))
+            this.logger.info('Tenant has been deleted', {
+                id: Number(tenantId),
+            })
+            res.json({ id: Number(tenantId) })
+        } catch (err) {
+            next(err)
+        }
     }
 }
