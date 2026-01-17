@@ -7,4 +7,10 @@ export class TenantService {
     async create(tenantData: ITenant) {
         return await this.tenantRepo.save(tenantData)
     }
+    async findAll() {
+        return await this.tenantRepo.find({})
+    }
+    async findById(id: number) {
+        return await this.tenantRepo.findOne({ where: { id } })
+    }
 }
