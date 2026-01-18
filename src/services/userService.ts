@@ -1,8 +1,7 @@
 import { Repository } from 'typeorm'
 import { User } from '../entity/User'
-import { UserData } from '../types'
+import { LimitedUserData, UserData } from '../types'
 import createHttpError from 'http-errors'
-import { Roles } from '../constants'
 import bcrypt from 'bcrypt'
 
 export class UserService {
@@ -37,10 +36,36 @@ export class UserService {
             throw error
         }
     }
+    async update(
+        userId: number,
+        { firstName, lastName, role, email, tenantId }: LimitedUserData,
+    ) {
+        try {
+            return await this.userRepository.update(userId, {
+                firstName,
+                lastName,
+                role,
+                email,
+                tenant: tenantId ? { id: tenantId } : null,
+            })
+        } catch (err) {
+            const error = createHttpError(
+                500,
+                'Failed to update the user in the database',
+            )
+            throw error
+        }
+    }
     async findByEmail(email: string) {
         return await this.userRepository.findOne({ where: { email } })
     }
     async findById(id: number) {
         return await this.userRepository.findOne({ where: { id } })
+    }
+    async findAll() {
+        return await this.userRepository.find()
+    }
+    async deleteById(userId: number) {
+        return await this.userRepository.delete(userId)
     }
 }
