@@ -9,6 +9,9 @@ const config: Config = {
         ...tsJestPreset.transform,
     },
     verbose: true,
+    collectCoverage: true,
+    coverageProvider: 'v8',
+    collectCoverageFrom: ['src/**/*.ts', '!tests/**', '!src/node_modules/**'],
 }
 
 export default config
