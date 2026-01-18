@@ -54,7 +54,7 @@ export class TenantController {
         try {
             const tenants = await this.tenantSerive.findAll()
             this.logger.info('Tenants fetched successfully')
-            res.status(200).json({ tenants })
+            res.status(200).json(tenants)
         } catch (err) {
             next(err)
         }
@@ -72,7 +72,9 @@ export class TenantController {
                 next(createHttpError(400, 'Tenant does not exist.'))
                 return
             }
-            res.status(200).json({ tenant })
+            this.logger.info('Tenants fetched successfully', { id: tenant.id })
+
+            res.status(200).json(tenant)
         } catch (err) {
             next(err)
         }

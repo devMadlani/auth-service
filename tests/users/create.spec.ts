@@ -85,6 +85,7 @@ describe('POST /users', () => {
             expect(users[0].role).toBe(Roles.MANAGER)
         })
         it('should return 403 if user is not an admin', async () => {
+            const tenant = await createTenant(connection.getRepository(Tenant))
             const managerToken = jwks.token({
                 sub: '1',
                 role: Roles.MANAGER,
@@ -95,7 +96,7 @@ describe('POST /users', () => {
                 lastName: 'Madlani',
                 email: ' madlanidev@gmail.com ',
                 password: 'Mdr@1234',
-                tenantId: '1',
+                tenantId: tenant.id,
             }
 
             const response = await request(app)

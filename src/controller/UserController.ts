@@ -74,9 +74,9 @@ export class UserController {
 
     async getAll(req: Request, res: Response, next: NextFunction) {
         try {
-            const tenants = await this.userService.findAll()
+            const users = await this.userService.findAll()
             this.logger.info('Users fetched successfully')
-            res.status(200).json({ tenants })
+            res.status(200).json(users)
         } catch (err) {
             next(err)
         }
