@@ -5,6 +5,8 @@ import app from '../../src/app'
 import createJWKSMock from 'mock-jwks'
 import { Roles } from '../../src/constants'
 import { User } from '../../src/entity/User'
+import { createTenant } from '../utils'
+import { Tenant } from '../../src/entity/Tenant'
 
 describe('POST /users', () => {
     let connection: DataSource
@@ -29,6 +31,7 @@ describe('POST /users', () => {
     })
     describe('Given all fields', () => {
         it('should persist user in database', async () => {
+            const tenant = await createTenant(connection.getRepository(Tenant))
             adminToken = jwks.token({
                 sub: '1',
                 role: Roles.ADMIN,
@@ -39,7 +42,7 @@ describe('POST /users', () => {
                 lastName: 'Madlani',
                 email: 'madlanidev@gmail.com',
                 password: 'Mdr@1234',
-                tenantId: '1',
+                tenantId: tenant.id,
                 role: Roles.MANAGER,
             }
 
@@ -54,7 +57,9 @@ describe('POST /users', () => {
             expect(users[0].email).toBe(userData.email)
         })
 
-        it('should create a manager user ', async () => {
+        it('should create a manager user', async () => {
+            const tenant = await createTenant(connection.getRepository(Tenant))
+
             adminToken = jwks.token({
                 sub: '1',
                 role: Roles.ADMIN,
@@ -65,7 +70,7 @@ describe('POST /users', () => {
                 lastName: 'Madlani',
                 email: 'madlanidev@gmail.com',
                 password: 'Mdr@1234',
-                tenantId: '1',
+                tenantId: tenant.id,
                 role: Roles.MANAGER,
             }
 
@@ -245,6 +250,8 @@ describe('POST /users', () => {
 
     describe('Fields are not in proper format', () => {
         it('should trim the email field', async () => {
+            const tenant = await createTenant(connection.getRepository(Tenant))
+
             // Arrange
             adminToken = jwks.token({
                 sub: '1',
@@ -255,7 +262,7 @@ describe('POST /users', () => {
                 lastName: 'Madlani',
                 email: ' madlanidev@gmail.com ',
                 password: 'Mdr@1234',
-                tenantId: '1',
+                tenantId: tenant.id,
                 role: Roles.MANAGER,
             }
 

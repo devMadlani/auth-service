@@ -17,7 +17,8 @@ export class UserController {
             return res.status(400).json({ errors: result.array() })
         }
 
-        const { firstName, lastName, email, password, role } = req.body
+        const { firstName, lastName, email, password, role, tenantId } =
+            req.body
 
         try {
             const user = await this.userService.create({
@@ -26,6 +27,7 @@ export class UserController {
                 email,
                 password,
                 role,
+                tenantId,
             })
             res.status(201).json({ id: user.id })
         } catch (err) {

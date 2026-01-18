@@ -1,4 +1,4 @@
-import { DataSource } from 'typeorm'
+import { DataSource, Repository } from 'typeorm'
 import { AppDataSource } from '../../src/config/data-source'
 import { User } from '../../src/entity/User'
 import bcrypt from 'bcrypt'
@@ -50,4 +50,13 @@ export const createMockTenants = async () => {
     for (let i = 0; i < 5; i++) {
         await tenantRepo.save({ name: `Tenant ${i}`, address: `Address ${i}` })
     }
+}
+
+export const createTenant = async (repository: Repository<Tenant>) => {
+    const tenant = await repository.save({
+        name: 'Test Name',
+        address: 'Test Address',
+    })
+
+    return tenant
 }
