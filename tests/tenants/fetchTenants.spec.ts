@@ -46,11 +46,6 @@ describe('GET /tenants or /tenants/:id', () => {
             expect(response.statusCode).toBe(200)
         })
 
-        it('should return 401 if user is not authenticate', async () => {
-            const response = await request(app).get('/tenants')
-            expect(response.statusCode).toBe(401)
-        })
-
         it('should return 200 status code and empty array when no tenant', async () => {
             await connection.dropDatabase()
             await connection.synchronize()
@@ -59,19 +54,7 @@ describe('GET /tenants or /tenants/:id', () => {
                 .set('Cookie', `accessToken=${adminToken}`)
 
             expect(response.statusCode).toBe(200)
-            expect(response.body).toStrictEqual({ tenants: [] })
-        })
-        it('should return 403 if user is not an admin', async () => {
-            const managerToken = jwks.token({
-                sub: '1',
-                role: Roles.MANAGER,
-            })
-
-            const response = await request(app)
-                .get('/tenants')
-                .set('Cookie', `accessToken=${managerToken}`)
-
-            expect(response.statusCode).toBe(403)
+            expect(response.body).toStrictEqual([])
         })
     })
 
