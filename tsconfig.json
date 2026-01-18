@@ -18,6 +18,6 @@
         "emitDecoratorMetadata": true,
         "useDefineForClassFields": false
     },
-    "include": ["src", "tests"],
-    "exclude": ["jest.config.ts", "**/*.spec.ts", "**/*.test.ts"]
+    "include": ["src"],
+    "exclude": ["jest.config.ts", "**/*.spec.ts", "**/*.test.ts", "tests"]
 }
