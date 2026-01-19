@@ -1,6 +1,5 @@
 import express, { NextFunction, Request, Response } from 'express'
 import { AuthController } from '../controller/AuthController'
-import { UserService } from '../services/UserService'
 import { AppDataSource } from '../config/data-source'
 import { User } from '../entity/User'
 import logger from '../config/logger'
@@ -13,6 +12,7 @@ import authenticate from '../middlewares/authenticate'
 import { AuthRequest } from '../types'
 import validateRefreshToken from '../middlewares/validateRefreshToken'
 import parseRefreshToken from '../middlewares/parseRefreshToken'
+import { UserService } from '../services/UserService'
 
 const router = express.Router()
 const userRepository = AppDataSource.getRepository(User)

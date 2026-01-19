@@ -17,6 +17,9 @@ jobs:
               run: npm ci
             - name: Run eslint
               run: npm run lint
+            - name: Debug services folder
+              run: ls -R src/services
+
             - name: Test and coverage
               run: npm run test
               env:

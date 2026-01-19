@@ -4,13 +4,12 @@ import logger from '../config/logger'
 import authenticate from '../middlewares/authenticate'
 import { canAccess } from '../middlewares/canAccess'
 import { Roles } from '../constants'
-import tenantValidators from '../validators/tenant-validators'
 import { UserController } from '../controller/UserController'
 import { User } from '../entity/User'
-import { UserService } from '../services/UserService'
 import createUserValidators from '../validators/create-user-validators'
 import updateUserValidatores from '../validators/update-user-validatores'
 import { UpdateUserRequest } from '../types'
+import { UserService } from '../services/UserService'
 
 const router = express.Router()
 

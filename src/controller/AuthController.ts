@@ -3,11 +3,12 @@ import { AuthRequest, LoginUserRequest, RegisterUserRequest } from '../types'
 import { Logger } from 'winston'
 import { validationResult } from 'express-validator'
 import { JwtPayload } from 'jsonwebtoken'
-import { UserService } from '../services/UserService'
+
 import { TokenService } from '../services/TokenService'
 import createHttpError from 'http-errors'
 import { CredentialService } from '../services/CredentialService'
 import { Roles } from '../constants'
+import { UserService } from '../services/UserService'
 
 export class AuthController {
     constructor(

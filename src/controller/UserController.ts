@@ -1,10 +1,10 @@
 import { NextFunction, Request, Response } from 'express'
-import { UserService } from '../services/UserService'
+
 import { CreateUserRequest, UpdateUserRequest } from '../types'
-import { Roles } from '../constants'
 import { validationResult } from 'express-validator'
 import { Logger } from 'winston'
 import createHttpError from 'http-errors'
+import { UserService } from '../services/UserService'
 
 export class UserController {
     constructor(
