@@ -30,4 +30,4 @@ CMD [ "node" , "src/server.js" ]
 
 
 
-# docker build -t mernstack_test_prod_image -f docker/prod/Dockerfile
+# docker build -t mernstack_test_prod_image -f docker/prod/Dockerfile .
