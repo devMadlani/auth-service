@@ -10,7 +10,7 @@
         "format:fix": "prettier . --write",
         "lint": "eslint .",
         "lint:fix": "eslint . --fix",
-        "test": "jest --coverage --all --runInBand",
+        "test": "jest --no-cache --coverage --all --runInBand",
         "prepare": "husky",
         "start": "ts-node src/index.ts",
         "migration:generate": "typeorm-ts-node-commonjs migration:generate",
