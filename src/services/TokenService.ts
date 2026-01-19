@@ -1,6 +1,4 @@
 import { JwtPayload, sign } from 'jsonwebtoken'
-import fs from 'fs'
-import path from 'path'
 import createHttpError from 'http-errors'
 import { Config } from '../config'
 import { RefreshToken } from '../entity/RefreshToken'
