@@ -27,3 +27,7 @@ COPY --from=builder /app/dist ./
 EXPOSE 5500
 
 CMD [ "node" , "src/server.js" ]
+
+
+
+# docker build -t mernstack_test_prod_image -f docker/prod/Dockerfile
