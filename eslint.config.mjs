@@ -1,5 +1,4 @@
 // @ts-check
-
 import eslint from '@eslint/js'
 import { defineConfig } from 'eslint/config'
 import tseslint from 'typescript-eslint'
@@ -7,26 +6,34 @@ import tseslint from 'typescript-eslint'
 export default defineConfig(
     eslint.configs.recommended,
     tseslint.configs.recommendedTypeChecked,
+
     {
         ignores: [
-            'dist',
-            'node_modues',
+            'dist/**',
+            'scripts/**',
+            'tests/**',
+            'coverage/**',
+            'node_modules/**',
             'eslint.config.mjs',
             'jest.config.ts',
             '**/*.spec.ts',
             '**/*.test.ts',
         ],
     },
+
     {
         languageOptions: {
             parserOptions: {
                 projectService: true,
+                tsconfigRootDir: import.meta.dirname,
             },
         },
+
         rules: {
             'no-console': 'error',
             'dot-notation': 'error',
-            // 'no-unused-vars': 'off',
+
+            // TypeScript relax rules
             '@typescript-eslint/no-unused-vars': 'off',
             '@typescript-eslint/no-unsafe-assignment': 'off',
         },
