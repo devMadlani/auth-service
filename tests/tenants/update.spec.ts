@@ -83,6 +83,7 @@ describe('PATCH /tenants/:id', () => {
         })
 
         it('should update tenant data in database', async () => {
+            await createTenant(connection.getRepository(Tenant))
             await request(app)
                 .post('/tenants')
                 .send({ name: 'Tenant Name', address: 'Tenant address' })
@@ -168,6 +169,7 @@ describe('PATCH /tenants/:id', () => {
 
     describe('Fields are not in proper format', () => {
         it('should trim the name and address fields', async () => {
+            await createTenant(connection.getRepository(Tenant))
             const tenantData = {
                 name: '   Tenant Name Updated  ',
                 address: '     Tenant Address Updated',
