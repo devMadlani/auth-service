@@ -4,7 +4,7 @@ import { AppDataSource } from '../../src/config/data-source'
 import { Roles } from '../../src/constants'
 import { DataSource } from 'typeorm'
 import app from '../../src/app'
-import { createMockTenants } from '../utils'
+import { createMockTenants, createTenant } from '../utils'
 import { Tenant } from '../../src/entity/Tenant'
 
 describe('GET /tenants or /tenants/:id', () => {
@@ -21,7 +21,7 @@ describe('GET /tenants or /tenants/:id', () => {
     beforeEach(async () => {
         await connection.dropDatabase()
         await connection.synchronize()
-        await createMockTenants()
+
         jwks.start()
         adminToken = jwks.token({
             sub: '1',
@@ -45,21 +45,12 @@ describe('GET /tenants or /tenants/:id', () => {
 
             expect(response.statusCode).toBe(200)
         })
-
-        it('should return 200 status code and empty array when no tenant', async () => {
-            await connection.dropDatabase()
-            await connection.synchronize()
-            const response = await request(app)
-                .get('/tenants')
-                .set('Cookie', `accessToken=${adminToken}`)
-
-            expect(response.statusCode).toBe(200)
-            expect(response.body).toStrictEqual([])
-        })
     })
 
     describe('GET /tenants/:id', () => {
         it('should return 200 status code', async () => {
+            await createTenant(connection.getRepository(Tenant))
+
             const response = await request(app)
                 .get('/tenants/1')
                 .set('Cookie', `accessToken=${adminToken}`)

@@ -5,7 +5,7 @@ import app from '../../src/app'
 import { Tenant } from '../../src/entity/Tenant'
 import createJWKSMock from 'mock-jwks'
 import { Roles } from '../../src/constants'
-import { createMockTenants } from '../utils'
+import { createMockTenants, createTenant } from '../utils'
 
 describe('PATCH /tenants/:id', () => {
     let connection: DataSource
@@ -20,7 +20,6 @@ describe('PATCH /tenants/:id', () => {
     beforeEach(async () => {
         await connection.dropDatabase()
         await connection.synchronize()
-        await createMockTenants()
         jwks.start()
         adminToken = jwks.token({
             sub: '1',
@@ -108,6 +107,7 @@ describe('PATCH /tenants/:id', () => {
         })
 
         it('should return update tenant id', async () => {
+            await createTenant(connection.getRepository(Tenant))
             const tenantData = {
                 name: 'Tenant Name Updated',
                 address: 'Tenant Address Updated',
