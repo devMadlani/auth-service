@@ -45,7 +45,7 @@ jobs:
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
 
         env:
-            IMAGE_NAME: codersgyan/mernspace_auth_test
+            IMAGE_NAME: devmadlani/mernstack_auth_service
             IMAGE_TAG: build-${{ github.run_number }}
 
         steps:
