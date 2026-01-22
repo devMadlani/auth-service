@@ -2,7 +2,7 @@ FROM node:18-alpine as builder
 
 WORKDIR /app
 
-COPY package*.json/ .
+COPY package*.json ./
 
 RUN npm ci
 
@@ -19,7 +19,7 @@ WORKDIR /server
 
 COPY package*.json ./
 
-RUN npm ci --ignore-scripts
+    RUN npm ci --ignore-scripts
 # --omit=dev
 
 COPY --from=builder /app/dist ./
