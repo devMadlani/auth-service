@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express'
 
-import { CreateUserRequest, UpdateUserRequest } from '../types'
-import { validationResult } from 'express-validator'
+import { CreateUserRequest, UpdateUserRequest, UserQueryParams } from '../types'
+import { matchedData, validationResult } from 'express-validator'
 import { Logger } from 'winston'
 import createHttpError from 'http-errors'
 import { UserService } from '../services/UserService'
@@ -73,10 +73,19 @@ export class UserController {
     }
 
     async getAll(req: Request, res: Response, next: NextFunction) {
+        const validatedQuery = matchedData(req, { onlyValidData: true })
+
         try {
-            const users = await this.userService.findAll()
+            const [users, count] = await this.userService.findAll(
+                validatedQuery as UserQueryParams,
+            )
             this.logger.info('Users fetched successfully')
-            res.status(200).json(users)
+            res.status(200).json({
+                currentPage: validatedQuery.currentPage as number,
+                perPage: validatedQuery.perPage as number,
+                total: count,
+                data: users,
+            })
         } catch (err) {
             next(err)
         }

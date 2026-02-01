@@ -10,6 +10,7 @@ import createUserValidators from '../validators/create-user-validators'
 import updateUserValidatores from '../validators/update-user-validatores'
 import { UpdateUserRequest } from '../types'
 import { UserService } from '../services/UserService'
+import listUsersValidators from '../validators/list-users-validators'
 
 const router = express.Router()
 
@@ -40,6 +41,7 @@ router.get(
     '/',
     authenticate,
     canAccess([Roles.ADMIN]),
+    listUsersValidators,
     (req: Request, res: Response, next: NextFunction) =>
         userController.getAll(req, res, next),
 )
