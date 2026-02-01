@@ -33,7 +33,7 @@ export class TenantController {
         }
         const { name, address } = req.body
         const tenantId = req.params.id
-        if (isNaN(Number(tenantId))) {
+        if (Number.isNaN(Number(tenantId))) {
             next(createHttpError(400, 'Invalid url param'))
             return
         }
@@ -61,7 +61,7 @@ export class TenantController {
     }
     async getOne(req: Request, res: Response, next: NextFunction) {
         const tenantId = req.params.id
-        if (isNaN(Number(tenantId))) {
+        if (Number.isNaN(Number(tenantId))) {
             next(createHttpError(400, 'Invalid url param'))
             return
         }
@@ -82,7 +82,7 @@ export class TenantController {
 
     async delete(req: Request, res: Response, next: NextFunction) {
         const tenantId = req.params.id
-        if (isNaN(Number(tenantId))) {
+        if (Number.isNaN(Number(tenantId))) {
             next(createHttpError(400, 'Invalid url param'))
             return
         }
