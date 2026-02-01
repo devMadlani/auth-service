@@ -7,6 +7,8 @@ module.exports = {
     collectCoverage: true,
     coverageProvider: 'v8',
 
+    setupFilesAfterEnv: ['<rootDir>/tests/jest.setup.ts'],
+
     collectCoverageFrom: [
         'src/**/*.{ts,tsx}',
         '!tests/**',
