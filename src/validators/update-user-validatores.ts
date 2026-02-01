@@ -19,7 +19,7 @@ export default checkSchema({
     },
     email: {
         isEmail: {
-            errorMessage: 'Invalid email!',
+            errorMessage: 'Please enter valid email!',
         },
         notEmpty: true,
         errorMessage: 'Email is required!',
