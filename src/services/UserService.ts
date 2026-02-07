@@ -75,6 +75,9 @@ export class UserService {
                 'password',
                 'role',
             ],
+            relations: {
+                tenant: true,
+            },
         })
     }
     async findById(id: number) {
