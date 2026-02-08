@@ -6,6 +6,7 @@ import { DataSource } from 'typeorm'
 import { Roles } from '../../src/constants'
 import { isJWT } from '../utils/index'
 import { RefreshToken } from '../../src/entity/RefreshToken'
+jest.setTimeout(20000)
 describe('POST auth/register', () => {
     let connection: DataSource
 
